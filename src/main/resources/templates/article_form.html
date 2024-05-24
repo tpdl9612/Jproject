@@ -1,0 +1,52 @@
+<html lang="en" layout:decorate="~{layout}">
+<div layout:fragment="content" class="w-[1000px] mx-auto">
+    <div class="flex flex-col gap-7">
+        <form th:action="@{|/article/write|}" class="flex flex-col gap-7" method="post" id="updateForm">
+         <h2 class="text-4xl">Title</h2>
+            <input type="text" name="title" class="border-4">
+            <p class="text-2xl">Content</p>
+            <input type="hidden" name="content" class="border-4" id="editor-body">
+            <div id="editor"></div>
+            <input type="submit" value="등록!" class="btn" onclick="updateForm()">
+        </form>
+    </div>
+<script>
+    const Editor = toastui.Editor;
+    const editor = new Editor({
+  el: document.querySelector('#editor'),
+  height: '500px',
+  initialEditType: 'markdown',
+  previewStyle: 'vertical'
+});
+
+editor.getMarkdown();
+</script>
+<script>
+    function updateForm() {
+            const form = document.getElementById("updateForm");
+            const editorBody = document.getElementById("editor-body");
+            if (confirm("등록하시겠습니까?")) {
+                const text = editor.getMarkdown();
+                editorBody.value = text;
+                form.submit();
+            }
+        }
+
+        function deleteForm() {
+            const form = document.getElementById("deleteForm");
+            if (confirm("삭제하시겠습니까?")) {
+                form.submit();
+            }
+        }
+</script>
+</div>
+<!--<div layout:fragment="content" class="w-[550px] mx-auto">-->
+<!--    <form th:action="@{|/article/write|}" method="post" class="flex flex-col gap-7">-->
+<!--        <input type="text" name="title" class="input">-->
+<!--        <div>-->
+<!--            <textarea name="content" id="content" cols="30" rows="10"></textarea>-->
+<!--        </div>-->
+<!--        <input type="submit" value="등록" class="btn">-->
+<!--    </form>-->
+<!--</div>-->
+</html>
