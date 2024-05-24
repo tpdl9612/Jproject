@@ -1,22 +1,24 @@
 <html lang="en" layout:decorate="~{layout}">
 <div layout:fragment="content" class="w-[1000px] mx-auto">
     <div class="flex flex-col gap-7">
-        <form th:action="@{|/article/write|}" class="flex flex-col gap-7" method="post" id="updateForm">
-         <h2 class="text-4xl">Title</h2>
-            <input type="text" name="title" class="border-4">
+        <form class="flex flex-col gap-7" method="post" id="updateForm">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <h2 class="text-4xl">Title</h2>
+            <input type="text" name="title" th:value="${article != null ? article.title : ''}" class="border-4">
             <p class="text-2xl">Content</p>
             <input type="hidden" name="content" class="border-4" id="editor-body">
             <div id="editor"></div>
             <input type="submit" value="등록!" class="btn" onclick="updateForm()">
         </form>
     </div>
-<script>
+<script th:inline="javascript">
     const Editor = toastui.Editor;
     const editor = new Editor({
   el: document.querySelector('#editor'),
   height: '500px',
   initialEditType: 'markdown',
-  previewStyle: 'vertical'
+  previewStyle: 'vertical',
+  initialValue: [[${article.content}]]
 });
 
 editor.getMarkdown();
@@ -40,13 +42,4 @@ editor.getMarkdown();
         }
 </script>
 </div>
-<!--<div layout:fragment="content" class="w-[550px] mx-auto">-->
-<!--    <form th:action="@{|/article/write|}" method="post" class="flex flex-col gap-7">-->
-<!--        <input type="text" name="title" class="input">-->
-<!--        <div>-->
-<!--            <textarea name="content" id="content" cols="30" rows="10"></textarea>-->
-<!--        </div>-->
-<!--        <input type="submit" value="등록" class="btn">-->
-<!--    </form>-->
-<!--</div>-->
 </html>

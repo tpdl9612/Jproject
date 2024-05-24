@@ -2,8 +2,11 @@ package com.korea.jproject.domain.article;
 
 import com.korea.jproject.domain.member.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,10 +17,11 @@ public class ArticleService {
 
     public Article create(String title, String content, Member author){
         Article article = new Article();
-        article.setTitle(title);
-        article.setContent(content);
+        article.setTitle(title != null ? title : "제목 없음");
+        article.setContent(content != null ? content : "내용 없음");
         article.setCreateDate(LocalDateTime.now());
         article.setAuthor(author);
+
         return articleRepository.save(article);
     }
 
@@ -32,4 +36,23 @@ public class ArticleService {
     public List<Article> getArticleList(){
         return articleRepository.findAll();
     }
+
+    public void update(Article article, String title, String content) {
+        article.setTitle(title);
+        article.setContent(content);
+        if(article.getTitle() == null){
+            article.setTitle("제목없음");
+        }
+        if(article.getContent() == null){
+            article.setContent("내용없음");
+        }
+        this.articleRepository.save(article);
+    }
+
+//    public void checkAuthor(Long id, Principal principal){
+//        Article article = getArticle(id);
+//        if(!article.getAuthor().getLoginId().equals(principal.getName())){
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "사용 권한이 없습니다.");
+//        }
+//    }
 }
