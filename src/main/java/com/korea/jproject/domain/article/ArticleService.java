@@ -2,6 +2,8 @@ package com.korea.jproject.domain.article;
 
 import com.korea.jproject.domain.member.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -33,8 +35,8 @@ public class ArticleService {
         return articleRepository.findById(id).orElseThrow();
     }
 
-    public List<Article> getArticleList(){
-        return articleRepository.findAll();
+    public Page<Article> getArticleList(Pageable pageable){
+        return articleRepository.findAll(pageable);
     }
 
     public void update(Article article, String title, String content) {
@@ -47,6 +49,10 @@ public class ArticleService {
             article.setContent("내용없음");
         }
         this.articleRepository.save(article);
+    }
+
+    public List<Article> getSearchedArticleList(String keyword){
+        return articleRepository.findByTitleContaining(keyword);
     }
 
 //    public void checkAuthor(Long id, Principal principal){

@@ -3,6 +3,10 @@ package com.korea.jproject.domain.article;
 import com.korea.jproject.domain.member.Member;
 import com.korea.jproject.domain.member.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -29,8 +33,8 @@ public class ArticleController {
     }
 
     @GetMapping("/article/list")
-    public String list(Model model){
-        List<Article> articleList = articleService.getArticleList();
+    public String list(Model model, @PageableDefault(size = 10, sort="id", direction= Sort.Direction.DESC) Pageable pageable){
+        Page<Article> articleList = articleService.getArticleList(pageable);
         model.addAttribute("articleList", articleList);
         return "article_list";
     }
@@ -46,7 +50,7 @@ public class ArticleController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/article/write")
     public String write(){
-        return "article_form";
+        return "write_form";
     }
 
     @PreAuthorize("isAuthenticated()")
