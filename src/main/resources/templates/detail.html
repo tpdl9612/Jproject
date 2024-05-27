@@ -2,15 +2,20 @@
 <div layout:fragment="content" class="w-[1000px] mx-auto">
     <div class="flex flex-col gap-7">
         <p>글쓴이</p>
-    <span th:if="${article.author != null}" th:text="${article.author.nickname}"></span>
+    <span th:if="${article.author != null}" th:text="${article.author}"></span>
     <h2 class="text-4xl">Title</h2>
         <span class="w=[50%] border-4" th:text="${article.title}"></span>
     <p class="text-2xl">Content</p>
         <span class="border-4" th:text="${article.content}"></span>
     </div>
+    <div th:if="${#lists.isEmpty(comments)}">댓글이 없습니다.</div>
+    <div th:each="comment : ${comments}">
+        <p><strong th:text="${comment.nickname}"></strong> <span th:text="${comment.createdDate}"></span></p>
+        <p th:text="${comment.comment}"></p>
+    </div>
     <a th:href="@{|/article/update/${article.id}|}" sec:authorize="isAuthenticated()"
-    th:if="${article.author !=null and #authentication.getPrincipal().getUsername() == article.author.getLoginId()}" th:text="수정" class="btn"></a>
+    th:if="${article.author !=null and #authentication.getPrincipal().getUsername() == article.author}" th:text="수정" class="btn"></a>
     <a th:href="@{|/article/delete/${article.id}|}" sec:authorize="isAuthenticated()"
-    th:if="${article.author !=null and #authentication.getPrincipal().getUsername() == article.author.getLoginId()}" th:text="삭제" class="btn"></a>
+    th:if="${article.author !=null and #authentication.getPrincipal().getUsername() == article.author}" th:text="삭제" class="btn"></a>
 </div>
 </html>

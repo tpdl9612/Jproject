@@ -1,5 +1,6 @@
 package com.korea.jproject.domain.article;
 
+import com.korea.jproject.domain.comment.CommentResponseDto;
 import com.korea.jproject.domain.member.Member;
 import com.korea.jproject.domain.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -41,8 +43,9 @@ public class ArticleController {
 
     @GetMapping("/article/detail/{id}")
     public String detail(Model model, @PathVariable("id")Long id){
-        Article article = articleService.getArticle(id);
-        model.addAttribute("article", article);
+        ArticleResponseDto articleResponseDto = articleService.getArticleResponseDto(id);
+        model.addAttribute("article", articleResponseDto);
+        model.addAttribute("comments", articleResponseDto.getComments());
         return "detail";
 
     }

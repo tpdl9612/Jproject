@@ -1,5 +1,7 @@
 package com.korea.jproject.domain.article;
 
+import com.korea.jproject.domain.comment.CommentRepository;
+import com.korea.jproject.domain.comment.CommentResponseDto;
 import com.korea.jproject.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,11 +13,13 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final CommentRepository commentRepository;
 
     public Article create(String title, String content, Member author){
         Article article = new Article();
@@ -53,6 +57,11 @@ public class ArticleService {
 
     public List<Article> getSearchedArticleList(String keyword){
         return articleRepository.findByTitleContaining(keyword);
+    }
+
+    public ArticleResponseDto getArticleResponseDto(Long id) {
+        Article article = articleRepository.findById(id).orElseThrow();
+        return new ArticleResponseDto(article);
     }
 
 //    public void checkAuthor(Long id, Principal principal){
