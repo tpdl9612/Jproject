@@ -3,14 +3,14 @@ package com.korea.jproject.domain.comment;
 import com.korea.jproject.domain.article.Article;
 import com.korea.jproject.domain.member.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Builder
 public class Comment {
@@ -21,9 +21,9 @@ public class Comment {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String comment; //댓글 내용
 
-    private String createdDate;
+    private LocalDateTime createdDate;
 
-    private String modifiedDate;
+    private LocalDateTime modifiedDate;
 
     @ManyToOne
     @JoinColumn(name = "article_id")

@@ -1,5 +1,6 @@
 package com.korea.jproject.domain.comment;
 
+import com.korea.jproject.domain.member.Member;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -10,9 +11,10 @@ public class CommentResponseDto {
     private Long id;
     private String comment;
 
-    private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
-    private String modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
     private String nickname;
+    private Member author;
     private Long articleId;
 
     public CommentResponseDto(Comment comment){
@@ -20,6 +22,7 @@ public class CommentResponseDto {
         this.comment = comment.getComment();
         this.createdDate = comment.getCreatedDate();
         this.modifiedDate = comment.getModifiedDate();
+        this.author = comment.getMember();
         this.nickname = comment.getMember().getNickname();
         this.articleId = comment.getArticle().getId();
     }

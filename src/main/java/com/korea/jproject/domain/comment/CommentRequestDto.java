@@ -18,8 +18,8 @@ public class CommentRequestDto {
     private Long id;
 
     private String comment;
-    private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
-    private String modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
     private Member member;
     private Article article;
 

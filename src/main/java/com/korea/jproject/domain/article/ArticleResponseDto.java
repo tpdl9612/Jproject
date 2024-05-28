@@ -15,7 +15,7 @@ public class ArticleResponseDto {
     private String content;
     private LocalDateTime createDate;
     private Long memberId;
-    private String author;
+    private Member author;
     private List<CommentResponseDto> comments;
 
     public ArticleResponseDto(Article article){
@@ -23,7 +23,7 @@ public class ArticleResponseDto {
         this.title = article.getTitle();
         this.content = article.getContent();
         this.createDate = article.getCreateDate();
-        this.author = article.getAuthor().getNickname();
+        this.author = article.getAuthor();
         this.memberId = article.getAuthor().getId();
         this.comments = article.getComments().stream().map(CommentResponseDto::new).collect(Collectors.toList());
 

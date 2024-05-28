@@ -60,7 +60,8 @@ public class ArticleService {
     }
 
     public ArticleResponseDto getArticleResponseDto(Long id) {
-        Article article = articleRepository.findById(id).orElseThrow();
+        Article article = articleRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Invalid article ID: " + id ));
         return new ArticleResponseDto(article);
     }
 

@@ -45,7 +45,6 @@ public class ArticleController {
     public String detail(Model model, @PathVariable("id")Long id){
         ArticleResponseDto articleResponseDto = articleService.getArticleResponseDto(id);
         model.addAttribute("article", articleResponseDto);
-        model.addAttribute("comments", articleResponseDto.getComments());
         return "detail";
 
     }
