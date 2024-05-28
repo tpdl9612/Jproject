@@ -59,9 +59,15 @@ public class ArticleService {
         return articleRepository.findByTitleContaining(keyword);
     }
 
+    private void increaseViewCount(Article article){
+        article.setViewCount(article.getViewCount() + 1);
+        articleRepository.save(article);
+    }
+
     public ArticleResponseDto getArticleResponseDto(Long id) {
         Article article = articleRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("Invalid article ID: " + id ));
+        increaseViewCount(article);
         return new ArticleResponseDto(article);
     }
 

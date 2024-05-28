@@ -1,54 +1,41 @@
 <html lang="en" layout:decorate="~{layout}">
-<div layout:fragment="content" class="w-[800px] mx-auto" style="text-align:left">
-<table>
-    <thead>
-        <tr>
-            <th class="w-[50%]">제목</th>
-            <th class="w-[20%]">작성자</th>
-            <th class="w-[30%]">작성일</th>
-        </tr>
-    </thead>
-    <tbody>
-    <div class="w-[80%]">
-        <tr th:each="article : ${articleList}">
-            <td>
-                <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.title}"></a>
-            </td>
-            <td>
-                <span th:if="${article.author != null}" th:text="${article.author.nickname}"></span>
-            </td>
-            <td th:text="${#temporals.format(article.createDate, 'yy-MM-dd HH:mm:ss')}"></td>
-        </tr>
+<div layout:fragment="content" class="w-[1200px] mx-auto" style="text-align:left">
+    <div>
+    <table>
+        <thead>
+            <tr>
+                <th class="w-[600px]">제목</th>
+                <th class="w-[300px]">작성자</th>
+                <th class="w-[200px]">작성일</th>
+                <th class="w-[200px]">조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+        <div class="w-[80%]" th:with="itemHover='hover:bg-blue-600 p-[10px] hover:text-white flex inline-block w-[100%]'">
+            <tr th:each="article : ${articleList}">
+                <td>
+                    <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.title}" th:class="${itemHover}"></a>
+                </td>
+                <td>
+                    <span th:if="${article.author != null}" th:text="${article.author.nickname}"></span>
+                </td>
+                <td th:text="${#temporals.format(article.createDate, 'yy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${article.viewCount}"></td>
+            </tr>
+        </div>
+        </tbody>
+    </table>
     </div>
-    <div class="pagination justify-content-center">
-        <ul class="pagination">
+    <a th:href="@{|/article/write|}" class="btn">글 작성하기</a>
+    <div class="pagination w-[100%]">
+        <ul class="pagination flex justify-center gap-10">
             <li th:classappend="${articleList.first} ? 'disabled' : ''" class="page-item">
-                <a class="page-link" th:href="@{|/article/list?page=${articleList.number - 1}|}" th:disabled="${articleList.first}">이전</a>
+                <a class="page-link w-[100px]" th:href="@{|/article/list?page=${articleList.number - 1}|}" th:disabled="${articleList.first}">이전</a>
             </li>
-            <li th:classappend="${articleList.last} ? 'disabled' : ''" class="page-item">
-                <a class="page-link" th:href="@{|/article/list?page=${articleList.number + 1}|}" th:disabled="${articleList.last}">다음</a>
+            <li th:classappend="${articleList.last} ? 'disabled' : ''" class="page-item flex">
+                <a class="page-link w-[100px]" th:href="@{|/article/list?page=${articleList.number + 1}|}" th:disabled="${articleList.last}">다음</a>
             </li>
         </ul>
     </div>
-
-<!--    <ul class="pagination justify-content-center">-->
-<!--        <c:choose>-->
-<!--            <c:when test="${boards.first}">-->
-<!--                <li class="page-item disabled"><a class="page-link" href="?page=${boards.number - 1}">Previous</a></li> </c:when>-->
-<!--            <c:otherwise>-->
-<!--                <li class="page-item"> <a class="page-link" href="?page=${boards.number - 1}">Previous</a></li>-->
-<!--            </c:otherwise>-->
-<!--        </c:choose>-->
-<!--        <c:choose>-->
-<!--            <c:when test="${boards.last}">-->
-<!--                <li class="page-item disabled"> <a class="page-link" href="?page=${boards.number + 1}">Next</a></li> </c:when>-->
-<!--            <c:otherwise>-->
-<!--                <li class="page-item"> <a class="page-link" href="?page=${boards.number + 1}">Next</a></li>-->
-<!--            </c:otherwise>-->
-<!--        </c:choose>-->
-<!--    </ul>-->
-    </tbody>
-</table>
-    <a th:href="@{|/article/write|}" class="btn">글 작성하기</a>
 </div>
 </html>

@@ -23,6 +23,8 @@ public class Article{
 
     private LocalDateTime createDate;
 
+    private int viewCount;
+
     @ManyToOne
     private Member author;
 
