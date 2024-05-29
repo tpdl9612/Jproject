@@ -1,6 +1,7 @@
 package com.korea.jproject.domain.article;
 
 import com.korea.jproject.domain.comment.Comment;
+import com.korea.jproject.domain.recommend.Recommend;
 import com.korea.jproject.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,4 +32,13 @@ public class Article{
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc") // 댓글 정렬
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
+    private List<Recommend> recommends;
+
+    @Transient
+    private boolean recommend_state;
+
+    @Transient
+    private int recommend_count;
 }

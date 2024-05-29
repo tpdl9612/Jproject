@@ -15,6 +15,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+
+    private final MyOAuth2UserService myOAuth2UserService;
+    public SecurityConfig(MyOAuth2UserService myOAuth2UserService) {
+        this.myOAuth2UserService = myOAuth2UserService;
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -23,15 +28,20 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
                         .anyRequest().authenticated()
                 )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .defaultSuccessUrl("/"))
+                        .defaultSuccessUrl("/")
+                )
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl("/login"));
         return http.build();
     }
+
 
     @Bean
     PasswordEncoder passwordEncoder(){
