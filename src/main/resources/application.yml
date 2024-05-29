@@ -20,7 +20,7 @@ spring:
                 registration:
                     google:
                         client-id: 110492365213-n4hm0juabfuroqi9cbs27jgudssuq270.apps.googleusercontent.com
-                        client-secret: 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
+                        client-secret:
                         scope: profile,email
                     kakao:
                         client-id: d5367acce2be30584d6688b363e45e24
@@ -28,7 +28,7 @@ spring:
                         authorization-grant-type: authorization_code
                     naver:
                         client-id: 4gijZmdql3geSs9BmBty
-                        client-secret: yh8rinsnCu
+                        client-secret:
                         redirect-uri: 'http://localhost:8088/login/oauth2/code/{registrationId}'
                         authorization-grant-type: authorization_code
 
