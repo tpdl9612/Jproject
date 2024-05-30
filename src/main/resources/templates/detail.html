@@ -1,5 +1,5 @@
 <html lang="en" layout:decorate="~{layout}">
-<div layout:fragment="content" class="w-[1000px] mx-auto m-[40px]">
+<div layout:fragment="content" class="w-[1000px] mx-auto">
     <div class="flex justify-end gap-3">
         <i class="fa-solid fa-user"></i>
     <span th:if="${article.author != null}" th:text="${article.author.nickname}"></span>

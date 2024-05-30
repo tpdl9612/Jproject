@@ -1,5 +1,5 @@
 <html lang="en" layout:decorate="~{layout}">
-<div layout:fragment="content" class="w-[550px] mx-auto flex flex-col gap-7 justify-center">
+<div layout:fragment="content" class="w-[550px] mx-auto flex flex-col gap-5 justify-center">
     <form th:action="@{/signup}" method="post" th:object="${memberForm}" class="flex flex-col gap-7">
         <input type="hidden" name="errorField" th:field="*{errorField}">
         <div role="alert" class="alert alert-warning" th:if="${#fields.hasErrors('errorField')}" th:errors="*{errorField}">

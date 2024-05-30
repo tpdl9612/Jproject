@@ -1,5 +1,5 @@
 <html lang="en" layout:decorate="~{layout}">
-<div layout:fragment="content" class="w-[1200px] mx-auto" style="text-align:left">
+<div layout:fragment="content" class="w-[1200px] mx-auto m-[40px]" style="text-align:left">
     <div>
     <table>
         <thead>
@@ -15,7 +15,10 @@
         <div class="w-[80%]" th:with="itemHover='hover:bg-blue-600 p-[10px] hover:text-white flex inline-block w-[100%]'">
             <tr th:each="article : ${articleList}">
                 <td>
-                    <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.title}" th:class="${itemHover}"></a>
+                    <a th:href="@{|/article/detail/${article.id}|}" th:class="${itemHover}">
+                        <span th:text="${article.title}" class="text-xl"></span>
+                        <span th:if="${article.comments.size() > 0}" th:text="' (' + ${article.comments.size()} + ')'" class="ml-[40px] mt-[3px]"></span>
+                    </a>
                 </td>
                 <td>
                     <span th:if="${article.author != null}" th:text="${article.author.nickname}"></span>
