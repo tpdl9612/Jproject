@@ -8,6 +8,7 @@
                 <th class="w-[300px]">작성자</th>
                 <th class="w-[200px]">작성일</th>
                 <th class="w-[200px]">조회수</th>
+                <th class="w-[200px]">추천수</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                 </td>
                 <td th:text="${#temporals.format(article.createDate, 'yy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${article.viewCount}"></td>
+                <td th:text="${article.likeCount}"></td>
             </tr>
         </div>
         </tbody>

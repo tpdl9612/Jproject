@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,6 +71,20 @@ public class ArticleService {
         increaseViewCount(article);
         return new ArticleResponseDto(article);
     }
+
+//    public int getRecommendCount(Long articleId) {
+//        Optional<Article> optionalArticle = articleRepository.findById(articleId);
+//        if (optionalArticle.isPresent()) {
+//            Article article = optionalArticle.get();
+//            // 해당 게시글의 추천 수를 추천 엔티티를 통해 가져옴
+//            return recommendRepository.countByArticle(article);
+//        } else {
+//            // 해당 ID에 해당하는 게시글이 없을 경우 처리
+//            return 0;
+//        }
+//    }
+
+
 
 //    public void checkAuthor(Long id, Principal principal){
 //        Article article = getArticle(id);

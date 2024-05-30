@@ -18,6 +18,7 @@ public class ArticleResponseDto {
     private Member author;
     private int viewCount;
     private List<CommentResponseDto> comments;
+    private int likeCount;
 
     public ArticleResponseDto(Article article){
         this.id = article.getId();
@@ -28,7 +29,7 @@ public class ArticleResponseDto {
         this.viewCount = article.getViewCount();
         this.memberId = article.getAuthor().getId();
         this.comments = article.getComments().stream().map(CommentResponseDto::new).collect(Collectors.toList());
-
+        this.likeCount = article.getLikeCount();
     }
 
 }

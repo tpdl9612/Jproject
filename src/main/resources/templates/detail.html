@@ -1,17 +1,33 @@
 <html lang="en" layout:decorate="~{layout}">
-<div layout:fragment="content" class="w-[1000px] mx-auto">
-    <div class="flex flex-col gap-7">
-        <p>글쓴이</p>
+<div layout:fragment="content" class="w-[1000px] mx-auto m-[40px]">
+    <div class="flex justify-end gap-3">
+        <i class="fa-solid fa-user"></i>
     <span th:if="${article.author != null}" th:text="${article.author.nickname}"></span>
-    <h2 class="text-4xl">Title</h2>
-        <span class="w=[50%] border-4" th:text="${article.title}"></span>
-    <p class="text-2xl">Content</p>
-        <span class="border-4" th:text="${article.content}"></span>
+    <span style="float: right;">
+        <i class="fa-solid fa-heart"></i>
+        <span th:text="${article.likeCount}"></span>
+        <i class="fa-solid fa-eye"></i>
+        <span th:text="${article.viewCount}"></span>
+    </span>
     </div>
-    <div th:if="${#lists.isEmpty(comments)}">댓글이 없습니다.</div>
+    <hr class="h-[2px] bg-gray-300 mt-[20px] mb-[20px]">
+        <span class="w=[50%] text-2xl" th:text="${article.title}"></span>
+        <hr class="h-[2px] bg-gray-300 mt-[20px] mb-[20px]"></hr>
+        <span class="text-lg" th:text="${article.content}"></span>
+    </hr>
+
+
+<!--    <p>Article ID: <span th:text="${article.id}"></span></p>-->
+    <a th:href="@{|/article/likes/up/${article.id}|}" sec:authorize="isAuthenticated()" class="btn w-[40px] flex-justify-center">
+        <i class="fa-solid fa-heart"></i>
+    </a>
+
+
+<!--    <div th:if="${#lists.isEmpty(comments)}">댓글이 없습니다.</div>-->
     <div th:each="comment : ${article.comments}">
         <p><strong th:text="${comment.nickname}"></strong> <span th:text="${comment.createdDate}"></span></p>
         <p th:text="${comment.comment}"></p>
+        <hr class="h-[2px] bg-gray-300 mt-[20px] mb-[20px]">
 
         <div sec:authorize="isAuthenticated()" th:if="${comment.author !=null and #authentication.getPrincipal().getLoginId() == comment.author.loginId}" class="flex flex-row">
             <form th:action="@{|/comment/update/${comment.id}|}" method="post" id="updateForm">
@@ -19,11 +35,11 @@
                 <input type="hidden" name="commentId" th:value="${comment.id}" />
                 <textarea name="comment" th:text="${comment.comment}"></textarea>
                 <input type="submit" value="수정!" class="btn">
-            </form>
-            <form th:action="@{|/comment/delete/${comment.id}|}" id="deleteForm">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                <input type="hidden" name="commentId" th:value="${comment.id}" />
-                <input type="submit" value="삭제!" class="btn" style="margin-top: 17px;">
+                <form th:action="@{|/comment/delete/${comment.id}|}" id="deleteForm">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <input type="hidden" name="commentId" th:value="${comment.id}" />
+                    <input type="submit" value="삭제!" class="btn" style="margin-top: 17px;">
+                </form>
             </form>
         </div>
     </div>

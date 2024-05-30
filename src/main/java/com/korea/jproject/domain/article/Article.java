@@ -1,7 +1,6 @@
 package com.korea.jproject.domain.article;
 
 import com.korea.jproject.domain.comment.Comment;
-import com.korea.jproject.domain.recommend.Recommend;
 import com.korea.jproject.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,6 +25,10 @@ public class Article{
 
     private int viewCount;
 
+    private int likeCount = 0;
+
+
+
     @ManyToOne
     private Member author;
 
@@ -33,12 +36,4 @@ public class Article{
     @OrderBy("id asc") // 댓글 정렬
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
-    private List<Recommend> recommends;
-
-    @Transient
-    private boolean recommend_state;
-
-    @Transient
-    private int recommend_count;
 }
