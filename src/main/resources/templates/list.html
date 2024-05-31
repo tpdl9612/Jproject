@@ -1,0 +1,28 @@
+<html lang="en" layout:decorate="~{layout}">
+<div layout:fragment="content" class="m-[40px] flex flex-col gap-15">
+    <table class="">
+        <thead>
+        <tr>
+            <td>
+                <img src="#" alt="">
+            </td>
+            <td class="ml-[20px]">도서제목</td>
+            <td>저자/출판사</td>
+            <td>출판일</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="book : ${books}">
+                <td>
+                    <img th:src="${book.image}" th:alt="${book.title}" width="100">
+                </td>
+                <td>
+                    <a th:href="${book.link}" th:text="${book.title}"></a>
+                </td>
+                <td>[[${book.author}]]/[[${book.publisher}]]</td>
+                <td>[[${book.pubdate}]]</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</html>

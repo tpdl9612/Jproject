@@ -31,7 +31,7 @@ public class ArticleController {
 
     @GetMapping("/")
     public String root(){
-        return "redirect:/article/list";
+        return "main";
     }
 
     @GetMapping("/article/list")
