@@ -21,6 +21,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
     private final BookApiClient bookApiClient;
+
+    @GetMapping("/readme")
+    public String readme(){
+        return "read_me";
+    }
     @GetMapping("/book/list/")
     public String list(@RequestParam("keyword")String keyword, Model model){
         if (keyword == null || keyword.isEmpty()) {

@@ -3,7 +3,7 @@
     <div>
     <table>
         <thead>
-            <tr>
+            <tr style="background-color: #4d8fe6; color: white;">
                 <th class="w-[600px]">제목</th>
                 <th class="w-[300px]">작성자</th>
                 <th class="w-[200px]">작성일</th>
@@ -13,7 +13,7 @@
         </thead>
         <tbody>
         <div class="w-[80%]" th:with="itemHover='hover:bg-blue-600 p-[10px] hover:text-white flex inline-block w-[100%]'">
-            <tr th:each="article : ${articleList}">
+            <tr th:each="article : ${articlePages}">
                 <td>
                     <a th:href="@{|/article/detail/${article.id}|}" th:class="${itemHover}">
                         <span th:text="${article.title}" class="text-xl"></span>
@@ -32,15 +32,25 @@
     </table>
     </div>
     <a th:href="@{|/article/write|}" class="btn">글 작성하기</a>
-    <div class="pagination w-[100%]">
-        <ul class="pagination flex justify-center gap-10">
-            <li th:classappend="${articleList.first} ? 'disabled' : ''" class="page-item">
-                <a class="page-link w-[100px]" th:href="@{|/article/list?page=${articleList.number - 1}|}" th:disabled="${articleList.first}">이전</a>
-            </li>
-            <li th:classappend="${articleList.last} ? 'disabled' : ''" class="page-item flex">
-                <a class="page-link w-[100px]" th:href="@{|/article/list?page=${articleList.number + 1}|}" th:disabled="${articleList.last}">다음</a>
-            </li>
-        </ul>
+    <div>
+        <!-- 첫번째 페이지로 이동 -->
+        <a th:href="@{/article/list(page=1)}">첫 페이지 </a>
+
+        <!-- 이전 링크 활성화 비활성화 -->
+        <a th:href="${articlePages.first} ? '#' : @{/article/list(page=${articlePages.number})}"> 이전 </a>
+
+        <!-- 페이지 번호 링크(현재 페이지는 숫자만)-->
+<!--        <for(int page=startPage; page<=endPage; page++)></for>-->
+        <span th:each="page: ${#numbers.sequence(startPage, endPage - 1)}">
+        <span th:if="${page == articlePages.number}" th:text="${page + 1}"></span>
+        <a th:unless="${page == articlePages.number}" th:href="@{|/article/list?page=${page}|}" th:text="${page + 1}"></a>
+        </span>
+
+        <!-- 다음 링크 활성화 비활성화 -->
+        <a th:href="${articlePages.last} ? '#' : @{/article/list(page=${articlePages.number + 2})}"> 다음 </a>
+
+        <!-- 마지막 페이지로 이동 -->
+        <a th:href="@{/article/list(page=${articlePages.totalPages})}"> 마지막 페이지</a>
     </div>
 </div>
 </html>

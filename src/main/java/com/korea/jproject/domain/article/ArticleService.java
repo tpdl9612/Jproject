@@ -5,7 +5,9 @@ import com.korea.jproject.domain.comment.CommentResponseDto;
 import com.korea.jproject.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -70,6 +72,18 @@ public class ArticleService {
                 () -> new IllegalArgumentException("Invalid article ID: " + id ));
         increaseViewCount(article);
         return new ArticleResponseDto(article);
+    }
+
+    public Page<ArticleResponseDto> paging(Pageable pageable){
+        int page = pageable.getPageNumber() -1;
+        int pageLimit = 10;
+
+        Page<Article> articleList = articleRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+
+        Page<ArticleResponseDto> articleResponseDtos = articleList.map(
+                articlePage -> new ArticleResponseDto(articlePage));
+
+        return articleResponseDtos;
     }
 
 

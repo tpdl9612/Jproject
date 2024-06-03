@@ -1,8 +1,30 @@
 <html lang="en" layout:decorate="~{layout}">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        .search-bar {
+          width: 500px;
+        }
+        .search-btn {
+          height: 32px;
+          margin-top: -3px;
+        }
+    </style>
+</head>
 <div layout:fragment="content" class="m-[40px] flex flex-col gap-15">
+    <div class="d-flex flex-column align-items-center gap-5">
+        <form th:action="@{/book/list/}" method="GET" class="d-flex flex-column align-items-center gap-7">
+            <div class="search-bar input-group mb-3">
+                <input name="keyword" type="text" class="form-control rounded-pill" placeholder="Bookgle 검색" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <input type="submit" value="검색" class="btn search-btn">
+                </div>
+            </div>
+        </form>
+    </div>
     <table class="">
         <thead>
-        <tr>
+        <tr style="background-color: #4d8fe6; color: white;">
             <td>
                 <img src="#" alt="">
             </td>

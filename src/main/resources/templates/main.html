@@ -63,9 +63,14 @@
             <button type="button" onclick="location.href='/article/list'" class="section btn btn-secondary">게시판으로</button>
         </div>
     </form>
-    <p class="text-center mt-4">How to use?</p>
+    <p class="text-center mt-4" id="howToUseLink" style="cursor: pointer;">How to use? Click</p>
 </div>
-<!--<button type="button" class="sectionone">Google 검색</button>-->
-<!--<button type="button" class="sectionone">I'm feeling Lucky</button>-->
+<script>
+    function goToReadmePage() {
+        window.location.href = '/readme';
+    }
+
+    document.getElementById('howToUseLink').addEventListener('click', goToReadmePage);
+</script>
 </body>
 </html>

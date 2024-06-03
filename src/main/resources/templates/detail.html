@@ -17,13 +17,14 @@
     </hr>
 
 
-<!--    <p>Article ID: <span th:text="${article.id}"></span></p>-->
+<!--    좋아요기능-->
+    <div class="flex justify-center mt-5 mb-5">
     <a th:href="@{|/article/likes/up/${article.id}|}" sec:authorize="isAuthenticated()" class="btn w-[40px] flex-justify-center">
         <i class="fa-solid fa-heart"></i>
     </a>
+    </div>
 
-
-<!--    <div th:if="${#lists.isEmpty(comments)}">댓글이 없습니다.</div>-->
+<!--    댓글기능-->
     <div th:each="comment : ${article.comments}">
         <p><strong th:text="${comment.nickname}"></strong> <span th:text="${comment.createdDate}"></span></p>
         <p th:text="${comment.comment}"></p>

@@ -35,9 +35,16 @@ public class ArticleController {
     }
 
     @GetMapping("/article/list")
-    public String list(Model model, @PageableDefault(size = 10, sort="id", direction= Sort.Direction.DESC) Pageable pageable){
-        Page<Article> articleList = articleService.getArticleList(pageable);
-        model.addAttribute("articleList", articleList);
+    public String list(Model model, @PageableDefault(page = 1) Pageable pageable){
+        Page<ArticleResponseDto> articlePages = articleService.paging(pageable);
+        model.addAttribute("articlePages", articlePages);
+
+        int blockLimit = 5;
+        int startPage = Math.max(0, ((int) Math.floor((double) pageable.getPageNumber() / blockLimit)) * blockLimit);
+        int endPage = Math.min(startPage + blockLimit, articlePages.getTotalPages());
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "article_list";
     }
 
