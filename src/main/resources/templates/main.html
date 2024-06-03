@@ -33,13 +33,16 @@
         .search-bar {
           width: 500px;
         }
-        .sectionone {
-          margin-top: 5%;
-          margin-right: 1%;
-          margin-left: 1%;  border-radius: 5px;
-          background-color: f9f9fa;
-          border: 0;
-          padding: 2% 4%;
+        .section {
+        background-color:   var(  --button-gray-color);
+    border:  0;
+    height: 38px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin:5px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: var(    --button-text-gray-color);
         }
     </style>
 </head>
@@ -49,15 +52,20 @@
         <span>B</span><span>o</span><span>o</span><span>k</span><span>g</span><span>l</span><span>e</span>
     </a>
 </h1>
-<form th:action="@{/book/list/}" method="GET">
-    <div class="mx-auto mt-5 search-bar input-group mb-3">
-        <input name="keyword" type="text" class="form-control rounded-pill" placeholder="Bookgle 검색" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
+<div class="d-flex flex-column align-items-center gap-5">
+    <form th:action="@{/book/list/}" method="GET" class="d-flex flex-column align-items-center gap-7">
+        <div class="search-bar input-group mb-3">
+            <input name="keyword" type="text" class="form-control rounded-pill" placeholder="Bookgle 검색" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append"></div>
         </div>
-    </div>
-    <input type="submit" value="검색" class="btn">
-</form>
+        <div class="d-flex justify-content-center gap-7">
+            <button type="submit" class="section btn btn-primary">검색</button>
+            <button type="button" onclick="location.href='/article/list'" class="section btn btn-secondary">게시판으로</button>
+        </div>
+    </form>
+    <p class="text-center mt-4">How to use?</p>
+</div>
 <!--<button type="button" class="sectionone">Google 검색</button>-->
-<button type="button" class="sectionone">I'm feeling Lucky</button>
+<!--<button type="button" class="sectionone">I'm feeling Lucky</button>-->
 </body>
 </html>
